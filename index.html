@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuickScan</title>
     <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
 
   <body>
     <nav class="nav topnav">
-      <div class="container">
+      <div class="container nav-container">
         <div id="logo">
           <img src="assets/mvw-logo.svg" alt="Logo" />
+        </div>
+
+        <div class="buttons nav-buttons">
+          <button type="button" class="nav-btn" id="contact-btn">
+            <span class="material-icons">contact_support</span>
+            <span>Contact</span>
+          </button>
+          <button type="button" class="nav-toggle" id="nav-toggle">
+            <span class="material-icons">menu</span>
+          </button>
         </div>
       </div>
     </nav>
@@ -20,8 +34,28 @@
       <section class="section">
         <div class="container">
           <article class="article">
-            <header>
-              <h1>Quick Scan</h1>
+            <header class="article-header">
+              <div class="header-content">
+                <h1>Quick Scan</h1>
+                <div class="view-toggle">
+                  <button
+                    type="button"
+                    class="toggle-btn"
+                    data-view="list"
+                    title="List view"
+                  >
+                    <span class="material-icons">view_list</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="toggle-btn active"
+                    data-view="card"
+                    title="Card view"
+                  >
+                    <span class="material-icons">apps</span>
+                  </button>
+                </div>
+              </div>
             </header>
           </article>
 
@@ -42,6 +76,7 @@
 
           <template id="outcome-template">
             <section class="outcome-card">
+              <span class="outcome-icon material-icons"></span>
               <h2 class="outcome-title"></h2>
               <p class="outcome-body"></p>
               <div class="outcome-ctas"></div>

@@ -17,10 +17,7 @@ const quickscanData = {
       id: "bekijk_voorwaarden",
       title: "Bekijk eerst de voorwaarden",
       body: "Je aanvraag lijkt mogelijk te passen, maar er zijn voorwaarden die belangrijk zijn voordat je een aanvraag start.",
-      ctas: [
-        { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
-        { label: "Doe de QuickScan opnieuw", action: "herstart" },
-      ],
+      ctas: [{ label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" }],
     },
     neem_contact_op: {
       id: "neem_contact_op",

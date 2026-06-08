@@ -9,6 +9,61 @@ const ctaTemplate = document.getElementById("cta-template");
 let currentQuestionId = "start";
 let selectedCategory = null;
 let questionHistory = [];
+let viewMode = "card";
+
+/**
+ * Map option label to Material Icon name
+ */
+function getIconForOption(label) {
+  const labelLower = label.toLowerCase();
+
+  const iconMap = {
+    project: "folder",
+    persoon: "person",
+    organisatie: "domain",
+    kerk: "church",
+    ondersteuning: "help",
+    diaconie: "favorite",
+    onderwijs: "school",
+    duurzaam: "eco",
+    versterking: "trending_up",
+    vernieuw: "refresh",
+    migrant: "public",
+    intercultureel: "public",
+    pionier: "flag",
+    gebouw: "domain",
+    orgel: "music_note",
+    inloop: "location_city",
+    presentie: "groups",
+    hulp: "support_agent",
+    faciliteiten: "home",
+    recreatie: "videogame_asset",
+    vorming: "palette",
+    identiteit: "account_circle",
+    alfabetisering: "menu_book",
+    mezelf: "person",
+    hulpverlener: "person_search",
+    intermediair: "handshake",
+  };
+
+  if (/\bja\b/.test(labelLower)) {
+    return "check";
+  }
+  if (/\bnee\b/.test(labelLower)) {
+    return "close";
+  }
+  if (labelLower.includes("nog niet")) {
+    return "hourglass_empty";
+  }
+
+  for (const [keyword, icon] of Object.entries(iconMap)) {
+    if (labelLower.includes(keyword)) {
+      return icon;
+    }
+  }
+
+  return "help_outline";
+}
 
 /**
  * Render progress bar showing current and previous step
@@ -96,22 +151,44 @@ function renderQuestion(questionId, isJump = false) {
   const currentHistoryItem = questionHistory[questionHistory.length - 1];
   const selectedOptionLabel = currentHistoryItem?.selectedOption;
 
-  question.options.forEach((option) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "option-button";
+  if (viewMode === "card") {
+    const cardContainer = document.createElement("div");
+    cardContainer.className = "question-options-cards";
 
-    if (selectedOptionLabel === option.label) {
-      button.classList.add("selected");
-    }
+    question.options.forEach((option) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "option-card";
 
-    button.textContent = option.label;
-    if (option.hint) {
-      button.innerHTML = `<span class="button-label">${option.label}</span><span class="button-hint">${option.hint}</span>`;
-    }
-    button.addEventListener("click", () => handleAnswer(option));
-    optionsContainer.appendChild(button);
-  });
+      if (selectedOptionLabel === option.label) {
+        card.classList.add("selected");
+      }
+
+      const icon = getIconForOption(option.label);
+      card.innerHTML = `<span class="material-icons option-icon">${icon}</span><span class="option-card-label">${option.label}</span>`;
+      card.addEventListener("click", () => handleAnswer(option));
+      cardContainer.appendChild(card);
+    });
+
+    optionsContainer.appendChild(cardContainer);
+  } else {
+    question.options.forEach((option) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "option-button";
+
+      if (selectedOptionLabel === option.label) {
+        button.classList.add("selected");
+      }
+
+      button.textContent = option.label;
+      if (option.hint) {
+        button.innerHTML = `<span class="button-label">${option.label}</span><span class="button-hint">${option.hint}</span>`;
+      }
+      button.addEventListener("click", () => handleAnswer(option));
+      optionsContainer.appendChild(button);
+    });
+  }
 
   app.appendChild(fragment);
 }
@@ -149,6 +226,17 @@ function handleAnswer(option) {
   }
 }
 
+function getOutcomeIcon(outcomeId) {
+  const outcomeIconMap = {
+    waarschijnlijk_passend: "check_circle",
+    bekijk_voorwaarden: "hourglass_empty",
+    neem_contact_op: "contact_support",
+    niet_passend: "close",
+    partnerroute: "share",
+  };
+  return outcomeIconMap[outcomeId] || "info";
+}
+
 /**
  * Render an outcome/result
  */
@@ -158,6 +246,8 @@ function renderOutcome(outcomeId) {
 
   const fragment = outcomeTemplate.content.cloneNode(true);
 
+  fragment.querySelector(".outcome-icon").textContent =
+    getOutcomeIcon(outcomeId);
   fragment.querySelector(".outcome-title").textContent = outcome.title;
   fragment.querySelector(".outcome-body").textContent = outcome.body;
 
@@ -177,7 +267,7 @@ function renderOutcome(outcomeId) {
   const goBackButton = document.createElement("button");
   goBackButton.type = "button";
   goBackButton.className = "cta-button cta-secondary";
-  goBackButton.textContent = "Go back and change answer";
+  goBackButton.innerHTML = `<span class="material-icons">arrow_back</span><span>Ga terug en pas antwoorden aan</span>`;
   goBackButton.addEventListener("click", () => handleCTA("go_back"));
   ctasContainer.appendChild(goBackButton);
 
@@ -185,7 +275,7 @@ function renderOutcome(outcomeId) {
   const resetButton = document.createElement("button");
   resetButton.type = "button";
   resetButton.className = "cta-button cta-secondary";
-  resetButton.textContent = "Reset";
+  resetButton.innerHTML = `<span class="material-icons">replay</span><span>Herstart Quick Scan</span>`;
   resetButton.addEventListener("click", () => handleCTA("reset"));
   ctasContainer.appendChild(resetButton);
 
@@ -211,5 +301,28 @@ function handleCTA(action) {
   // Add other CTA handlers as needed (contact, bekijk_routes, etc.)
 }
 
+/**
+ * Setup view toggle event listeners
+ */
+function setupViewToggle() {
+  const toggleButtons = document.querySelectorAll(".toggle-btn");
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const newView = e.currentTarget.dataset.view;
+      if (newView !== viewMode) {
+        viewMode = newView;
+        toggleButtons.forEach((b) => b.classList.remove("active"));
+        e.currentTarget.classList.add("active");
+        // Re-render current question with new view mode
+        if (questionHistory.length > 0) {
+          const currentQuestion = questionHistory[questionHistory.length - 1];
+          renderQuestion(currentQuestion.id, true);
+        }
+      }
+    });
+  });
+}
+
 // Initialize
+setupViewToggle();
 renderQuestion("start");
