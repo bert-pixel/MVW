@@ -1,0 +1,30 @@
+body {
+  background: #eee;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.nav.topnav {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  background: white;
+}
+
+.main {
+  margin-top: 10rem;
+}
+
+.section {
+  padding: 2rem 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
