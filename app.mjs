@@ -274,7 +274,7 @@ function renderOutcome(outcomeId) {
   // Add "Reset" button
   const resetButton = document.createElement("button");
   resetButton.type = "button";
-  resetButton.className = "cta-button cta-secondary";
+  resetButton.className = "cta-button cta-secondary cta-reset";
   resetButton.innerHTML = `<span class="material-icons">replay</span><span>Herstart Quick Scan</span>`;
   resetButton.addEventListener("click", () => handleCTA("reset"));
   ctasContainer.appendChild(resetButton);
