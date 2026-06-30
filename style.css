@@ -32,7 +32,6 @@ body {
 }
 
 .main {
-  margin-top: 10rem;
 }
 
 .section {
@@ -81,7 +80,7 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   gap: 1rem;
 }
@@ -168,7 +167,7 @@ body {
 
 .question-title,
 .outcome-title {
-  font-size: 2.3rem;
+  font-size: 1.6rem;
   margin: 0 0 0.5rem 0;
   color: var(--c-primary-light);
   font-weight: 300;
@@ -419,8 +418,8 @@ body {
 
   .question-title,
   .outcome-title {
-    font-size: 2rem;
-    padding: 1rem 0;
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
   }
 
   .option-button,

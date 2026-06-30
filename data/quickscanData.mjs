@@ -2,375 +2,257 @@
 // Gebruik: importeer dit bestand en gebruik `quickscanData` als de databron voor je prototype.
 
 const quickscanData = {
-  // ─── UITKOMSTEN ────────────────────────────────────────────────────────────
   outcomes: {
-    waarschijnlijk_passend: {
-      id: "waarschijnlijk_passend",
-      title: "Je aanvraag lijkt mogelijk te passen",
-      body: "Op basis van je antwoorden lijkt jouw initiatief aan te sluiten bij deze aanvraagroute. Controleer de voorwaarden voordat je start.",
+    start_aanvraag: {
+      id: "start_aanvraag",
+      title: "Start je aanvraag",
+      body: "Je aanvraag lijkt te voldoen aan de basiscriteria van Maatschappij van Welstand. Controleer de voorwaarden en stuur waar mogelijk bewijsstukken mee.",
       ctas: [
         { label: "Start aanvraag", action: "start_aanvraag" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
       ],
     },
-    bekijk_voorwaarden: {
-      id: "bekijk_voorwaarden",
-      title: "Bekijk eerst de voorwaarden",
-      body: "Je aanvraag lijkt mogelijk te passen, maar er zijn voorwaarden die belangrijk zijn voordat je een aanvraag start.",
-      ctas: [{ label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" }],
+    noodhulp_contact: {
+      id: "noodhulp_contact",
+      title: "Aanvraag niet mogelijk via privépersoon",
+      body: "Een aanvraag kan alleen worden ingediend door een erkende hulpverlener of maatschappelijk werker van een officiële, erkende hulpverlenende organisatie. Privéaanvragen worden niet in behandeling genomen.",
+      ctas: [{ label: "Neem contact op", action: "contact" }],
     },
-    neem_contact_op: {
-      id: "neem_contact_op",
-      title: "Neem eerst contact op",
-      body: "Je situatie valt mogelijk onder een uitzondering of twijfelroute. Neem eerst contact op, zodat je niet onnodig een aanvraag start.",
+    mvw_al_reeds_toegekend: {
+      id: "mvw_al_reeds_toegekend",
+      title: "Waarschijnlijk niet passend",
+      body: "MvW kent in principe geen bijdragen toe aan personen/gezinnen die in de afgelopen drie jaar al een toekenning hebben gekregen. Neem bij twijfel contact op via info@mvw.nl of telefonisch via 033 – 467 10 15.",
+      ctas: [{ label: "Neem contact op", action: "contact" }],
+    },
+    project_passend: {
+      id: "project_passend",
+      title: "Je project lijkt passend",
+      body: "Op basis van je antwoorden lijkt jouw project aan te sluiten bij de richtlijnen van Maatschappij van Welstand. Controleer de voorwaarden en start je aanvraag.",
       ctas: [
-        { label: "Neem contact op", action: "contact" },
-        { label: "Bekijk aanvraagroutes", action: "bekijk_routes" },
+        { label: "Start aanvraag", action: "start_aanvraag" },
+        { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
       ],
     },
-    niet_passend: {
-      id: "niet_passend",
+    project_niet_passend: {
+      id: "project_niet_passend",
       title: "Waarschijnlijk niet passend",
-      body: "Op basis van je antwoorden lijkt deze aanvraag waarschijnlijk niet binnen de voorwaarden van MVW te vallen.",
+      body: "Op basis van je antwoorden lijkt jouw project niet te voldoen aan de basiscriteria van Maatschappij van Welstand.",
       ctas: [
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
         { label: "Neem contact op bij twijfel", action: "contact" },
       ],
     },
-    partnerroute: {
-      id: "partnerroute",
-      title: "Mogelijk andere route",
-      body: "Voor jouw aanvraag is mogelijk een partnerroute passender, bijvoorbeeld SOFAK of Fonds Franciscus.",
-      ctas: [
-        { label: "Bekijk partnerroute", action: "bekijk_partnerroute" },
-        { label: "Neem contact op bij twijfel", action: "contact" },
-      ],
+    project_kerk: {
+      id: "project_kerk",
+      title: "Kerk en/of geloof",
+      body: "Je project valt onder kerk en/of geloof. Je kunt een aanvraag doen voor versterking en vernieuwing, migrantenkerken of interculturele kerken, pioniersplekken, restauratie of nieuw-/verbouw van kerkgebouwen en orgels. Onder voorwaarden is ook een hypothecaire lening mogelijk.",
+      ctas: [{ label: "Start aanvraag", action: "start_aanvraag" }],
+    },
+    project_samenleving: {
+      id: "project_samenleving",
+      title: "Ondersteuning kwetsbare groepen",
+      body: "Je project valt onder maatschappelijke zorg. Je kunt een aanvraag doen voor inloophuizen, presentie of maatschappelijke hulp, faciliteiten en inrichting, of recreatie met zorg.",
+      ctas: [{ label: "Start aanvraag", action: "start_aanvraag" }],
+    },
+    project_onderwijs: {
+      id: "project_onderwijs",
+      title: "Levensbeschouwelijk onderwijs",
+      body: "Je project richt zich op levensbeschouwelijke vorming, identiteit of religieuze alfabetisering. Je kunt een aanvraag doen voor projecten die jongeren buiten school bereiken of professionals ondersteunen in levensbeschouwelijk onderwijs.",
+      ctas: [{ label: "Start aanvraag", action: "start_aanvraag" }],
+    },
+    bekijk_voorwaarden: {
+      id: "bekijk_voorwaarden",
+      title: "Bekijk eerst de voorwaarden",
+      body: "Deze quickscan is een richtlijn en geen garantie op een donatie. Controleer altijd de voorwaarden voordat je een aanvraag start.",
+      ctas: [{ label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" }],
+    },
+    neem_contact_op: {
+      id: "neem_contact_op",
+      title: "Neem contact op",
+      body: "Bij twijfel of onduidelijkheid is het verstandig om contact op te nemen zodat je niet onnodig een aanvraag start.",
+      ctas: [{ label: "Neem contact op", action: "contact" }],
     },
   },
 
-  // ─── VRAGEN ────────────────────────────────────────────────────────────────
   questions: {
-    // ── STAP 0: Startvraag ──────────────────────────────────────────────────
     start: {
       id: "start",
       step: 0,
-      title: "Waarvoor wil je een financiële bijdrage aanvragen?",
+      title:
+        "Ben je benieuwd of je een donatieaanvraag kunt indienen bij Maatschappij van Welstand? Waarvoor wil je een aanvraag doen?",
+      subtitle: "Start de Quick Scan voor:",
       options: [
         {
-          label: "Project namens organisatie of initiatief",
-          next: "aanvrager",
+          label: "Projectondersteuning",
+          next: "project_kenmerk",
         },
         {
-          label: "Persoonlijke ondersteuning",
-          next: "aanvrager",
-        },
-        {
-          label: "Kerk of geloofsgemeenschap",
-          next: "aanvrager",
-        },
-        {
-          label: "Samenleving / diaconie",
-          next: "aanvrager",
-        },
-        {
-          label: "Onderwijs",
-          next: "aanvrager",
-        },
-        {
-          label: "Duurzaamheid",
-          next: "aanvrager",
-        },
-        {
-          label: "Ik weet het niet zeker",
-          next: "aanvrager",
+          label: "Aanvraag voor noodhulp voor personen/gezinnen",
+          next: "noodhulp_hulpverlener",
         },
       ],
     },
 
-    // ── STAP 1: Aanvrager ───────────────────────────────────────────────────
-    aanvrager: {
-      id: "aanvrager",
+    noodhulp_hulpverlener: {
+      id: "noodhulp_hulpverlener",
       step: 1,
-      title: "Vraag je aan namens een organisatie, initiatief of intermediair?",
+      title:
+        "Ben jij een hulpverlener of maatschappelijk werker van een officiële hulpverlenende organisatie? (bijvoorbeeld maatschappelijk werk, wijkteam, zorginstelling, therapeut) of een erkend bewindvoerder?",
       options: [
         {
-          label: "Ja, namens een organisatie/initiatief",
-          next: "thema",
+          label: "Ja",
+          next: "noodhulp_wettelijke_regelingen",
         },
         {
-          label: "Ja, als hulpverlener/intermediair",
-          next: "thema",
-          hint: "Route via persoonlijke ondersteuning",
-        },
-        {
-          label: "Nee, voor mezelf",
-          // Persoonlijke ondersteuning kan niet zelf worden aangevraagd
+          label: "Nee",
           next: null,
-          outcome: "niet_passend",
-          explanation:
-            "Persoonlijke ondersteuning kan helaas niet door de betrokkene zelf worden aangevraagd. Een erkend hulpverlener of intermediair dient de aanvraag in.",
-        },
-        {
-          label: "Ik weet het niet",
-          next: null,
-          outcome: "neem_contact_op",
+          outcome: "noodhulp_contact",
+          hint: "Aanvragen door een privépersoon worden niet in behandeling genomen.",
         },
       ],
     },
 
-    // ── STAP 2: Thema ───────────────────────────────────────────────────────
-    thema: {
-      id: "thema",
+    noodhulp_wettelijke_regelingen: {
+      id: "noodhulp_wettelijke_regelingen",
       step: 2,
-      title: "Waar past je aanvraag het beste bij?",
+      title:
+        "Maatschappij van Welstand ziet haar gift als aanvullend op wettelijke overheidsregelingen en lokale noodfondsen. Kan er voor deze aanvraag hier ook aanspraak op worden gemaakt?",
       options: [
         {
-          label: "Kerk, geloofsgemeenschap of kerkgebouw",
-          category: "kerk",
-          next: "projectfase",
+          label: "Ja",
+          next: "noodhulp_voorgaande_bijdrage",
+          hint: "Bij de aanvraag graag de bedragen vermelden en bewijsstukken meesturen.",
         },
         {
-          label: "Maatschappelijke hulp, diaconie of kwetsbare groepen",
-          category: "samenleving",
-          next: "projectfase",
-        },
-        {
-          label: "Onderwijs, identiteit of vorming",
-          category: "onderwijs",
-          next: "projectfase",
-        },
-        {
-          label: "Duurzaamheid, landbouw, bodem of bewustwording",
-          category: "duurzaamheid",
-          next: "projectfase",
-        },
-        {
-          label: "Persoonlijke ondersteuning voor iemand anders",
-          category: "persoonlijk",
-          next: "projectfase",
-        },
-        {
-          label: "Geen van deze / twijfel",
-          next: null,
-          outcome: "neem_contact_op",
+          label: "Nee",
+          next: "noodhulp_voorgaande_bijdrage",
+          hint: "Bij de aanvraag graag aangeven waarom dit niet mogelijk is. Ook eventuele afwijzingen graag meesturen.",
         },
       ],
     },
 
-    // ── STAP 3: Projectfase ─────────────────────────────────────────────────
-    projectfase: {
-      id: "projectfase",
+    noodhulp_voorgaande_bijdrage: {
+      id: "noodhulp_voorgaande_bijdrage",
       step: 3,
-      title: "Gaat het om een concreet project?",
-      options: [
-        {
-          label: "Ja, met doel, planning en begroting",
-          next: "categoriecheck", // verder naar categoriespecifieke vraag
-        },
-        {
-          label: "Nog niet, het idee is in voorbereiding",
-          next: null,
-          outcome: "bekijk_voorwaarden",
-        },
-        {
-          label: "Nee, het gaat om structurele kosten of exploitatie",
-          next: null,
-          outcome: "niet_passend",
-        },
-        {
-          label: "Ik weet het niet",
-          next: null,
-          outcome: "neem_contact_op",
-        },
-      ],
-    },
-
-    // ── STAP 4: Categoriecheck ──────────────────────────────────────────────
-    // De vraag die getoond wordt hangt af van de gekozen categorie in stap 2.
-    // categoriecheck_kerk, _samenleving, etc. zijn varianten van dezelfde stap.
-
-    categoriecheck_kerk: {
-      id: "categoriecheck_kerk",
-      step: 4,
-      category: "kerk",
-      title: "Waar gaat je kerkelijke aanvraag over?",
-      options: [
-        {
-          label: "Versterking of vernieuwing",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Migrantenkerk / interculturele kerk",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Pioniersplek",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Kerkgebouw of orgel",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Duurzaamheid",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Ik twijfel",
-          next: null,
-          outcome: "neem_contact_op",
-        },
-      ],
-    },
-
-    categoriecheck_samenleving: {
-      id: "categoriecheck_samenleving",
-      step: 4,
-      category: "samenleving",
-      title: "Waar gaat je maatschappelijke aanvraag over?",
-      options: [
-        {
-          label: "Inloophuis",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Presentie of maatschappelijke hulp",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Faciliteiten of inrichting",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Recreatie met zorg",
-          next: "twijfel_uitzondering",
-        },
-        {
-          label: "Ik twijfel",
-          next: null,
-          outcome: "neem_contact_op",
-        },
-      ],
-    },
-
-    categoriecheck_onderwijs: {
-      id: "categoriecheck_onderwijs",
-      step: 4,
-      category: "onderwijs",
       title:
-        "Sluit je aanvraag aan bij levensbeschouwelijke vorming, identiteit of religieuze alfabetisering?",
+        "Heeft de cliënt/het gezin in de afgelopen drie jaar al eens een financiële bijdrage gekregen vanuit Maatschappij van Welstand?",
+      options: [
+        {
+          label: "Nee",
+          next: null,
+          outcome: "start_aanvraag",
+        },
+        {
+          label: "Ja",
+          next: null,
+          outcome: "mvw_al_reeds_toegekend",
+        },
+      ],
+    },
+
+    project_kenmerk: {
+      id: "project_kenmerk",
+      step: 1,
+      title:
+        "Heeft het project of de aanvragende organisatie/kerk/geloofsgemeenschap een protestants-christelijke identiteit?",
       options: [
         {
           label: "Ja",
-          next: "twijfel_uitzondering",
+          next: "project_locatie",
         },
         {
           label: "Nee",
           next: null,
-          outcome: "niet_passend",
-        },
-        {
-          label: "Ik twijfel",
-          next: null,
-          outcome: "neem_contact_op",
+          outcome: "project_niet_passend",
+          hint: "Wij ondersteunen uitsluitend projecten met een kerkelijke verbondenheid of zichtbare christelijke levensbeschouwing.",
         },
       ],
     },
 
-    categoriecheck_duurzaamheid: {
-      id: "categoriecheck_duurzaamheid",
-      step: 4,
-      category: "duurzaamheid",
+    project_locatie: {
+      id: "project_locatie",
+      step: 2,
       title:
-        "Vraag je aan namens een kerk, christelijke organisatie of pachter van MVW?",
+        "Betreft het een aanvraag voor een project/initiatief in Nederland?",
       options: [
         {
           label: "Ja",
-          next: "twijfel_uitzondering",
+          next: "project_eenmalig",
         },
         {
           label: "Nee",
           next: null,
-          outcome: "niet_passend",
-        },
-        {
-          label: "Ik twijfel",
-          next: null,
-          outcome: "neem_contact_op",
+          outcome: "project_niet_passend",
+          hint: "Het werkgebied van Maatschappij van Welstand is in Nederland.",
         },
       ],
     },
 
-    categoriecheck_persoonlijk: {
-      id: "categoriecheck_persoonlijk",
-      step: 4,
-      category: "persoonlijk",
+    project_eenmalig: {
+      id: "project_eenmalig",
+      step: 3,
       title:
-        "Ben je hulpverlener, maatschappelijk werker of erkende intermediair?",
+        "Is jouw project/initiatief een eenmalig evenement, congres of publicatie, tijdschrift of boek?",
       options: [
         {
           label: "Ja",
-          next: "twijfel_uitzondering",
+          next: null,
+          outcome: "project_niet_passend",
+          hint: "Wij ondersteunen geen eenmalige evenementen of publicaties zonder directe relatie met MVW-doelstellingen.",
         },
         {
           label: "Nee",
-          next: null,
-          outcome: "niet_passend",
-        },
-        {
-          label: "Ik twijfel",
-          next: null,
-          outcome: "neem_contact_op",
+          next: "project_eigen_vermogen",
         },
       ],
     },
 
-    // ── STAP 5: Twijfel of uitzondering ────────────────────────────────────
-    twijfel_uitzondering: {
-      id: "twijfel_uitzondering",
+    project_eigen_vermogen: {
+      id: "project_eigen_vermogen",
+      step: 4,
+      title:
+        "Is het eigen vermogen van de aanvragende organisatie meer dan 1,5 van de reguliere jaaromzet?",
+      options: [
+        {
+          label: "Ja",
+          next: null,
+          outcome: "neem_contact_op",
+          hint: "Neem contact op als je twijfelt over eigen vermogen; MvW vraagt soms jaarrekeninginzichten op bij betrokken partijen.",
+        },
+        {
+          label: "Nee",
+          next: "project_domein",
+        },
+      ],
+    },
+
+    project_domein: {
+      id: "project_domein",
       step: 5,
-      title: "Weet je zeker dat deze route past?",
+      title: "Is het project/initiatief gericht op:",
       options: [
         {
-          label: "Ja, ik wil verder",
+          label: "Kerk en/of geloof",
           next: null,
-          outcome: "waarschijnlijk_passend",
+          outcome: "project_kerk",
         },
         {
-          label: "Ik wil eerst de voorwaarden bekijken",
+          label: "Ondersteuning van kwetsbare groepen in de samenleving",
           next: null,
-          outcome: "bekijk_voorwaarden",
+          outcome: "project_samenleving",
         },
         {
-          label: "Ik twijfel nog",
+          label: "Levensbeschouwelijk onderwijs",
           next: null,
-          outcome: "neem_contact_op",
-        },
-        {
-          label: "Ik denk dat er een partnerroute is",
-          next: null,
-          outcome: "partnerroute",
+          outcome: "project_onderwijs",
         },
       ],
     },
   },
 
-  // ─── ROUTING HULPFUNCTIE ───────────────────────────────────────────────────
-  // Roept de juiste categoriecheck op op basis van de gekozen categorie in stap 2.
-  // Gebruik deze in je prototype om de volgende vraag te bepalen na stap 3.
   getCategoriecheck(category) {
-    const map = {
-      kerk: "categoriecheck_kerk",
-      samenleving: "categoriecheck_samenleving",
-      onderwijs: "categoriecheck_onderwijs",
-      duurzaamheid: "categoriecheck_duurzaamheid",
-      persoonlijk: "categoriecheck_persoonlijk",
-    };
-    return map[category] || null;
+    return null;
   },
 };
 
-// ─── EXPORT (voor gebruik als module) ─────────────────────────────────────────
-// In een gewone <script>-tag is `quickscanData` direct beschikbaar als globale variabele.
-// Bij gebruik als ES module: export default quickscanData;
 export default quickscanData;

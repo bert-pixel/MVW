@@ -10,6 +10,18 @@ let currentQuestionId = "start";
 let selectedCategory = null;
 let questionHistory = [];
 let viewMode = "card";
+const debug = true;
+
+const CTA_URLS = {
+  contact: "/contact",
+  bekijk_voorwaarden: "/donatie-aanvragen",
+  start_aanvraag: "https://aanvragen.mvw.nl/Account/Login",
+};
+
+function debugLog(...args) {
+  if (!debug) return;
+  console.log(...args);
+}
 
 /**
  * Map option label to Material Icon name
@@ -18,7 +30,7 @@ function getIconForOption(label) {
   const labelLower = label.toLowerCase();
 
   const iconMap = {
-    project: "folder",
+    project: "architecture",
     persoon: "person",
     organisatie: "domain",
     kerk: "church",
@@ -202,6 +214,17 @@ function handleAnswer(option) {
     questionHistory[questionHistory.length - 1].selectedOption = option.label;
   }
 
+  debugLog("QuickScan choice:", {
+    questionId: currentQuestionId,
+    questionTitle: quickscanData.questions[currentQuestionId]?.title,
+    selectedOption: option.label,
+    history: questionHistory.map((item) => ({
+      id: item.id,
+      title: item.title,
+      selectedOption: item.selectedOption,
+    })),
+  });
+
   // Store category if this is from the thema question
   if (currentQuestionId === "thema" && option.category) {
     selectedCategory = option.category;
@@ -228,13 +251,21 @@ function handleAnswer(option) {
 
 function getOutcomeIcon(outcomeId) {
   const outcomeIconMap = {
-    waarschijnlijk_passend: "check_circle",
+    start_aanvraag: "check_circle",
+    noodhulp_contact: "block",
+    mvw_al_reeds_toegekend: "block",
+    project_passend: "check_circle",
+    project_niet_passend: "block",
+    project_kerk: "check_circle",
+    project_samenleving: "check_circle",
+    project_onderwijs: "check_circle",
     bekijk_voorwaarden: "hourglass_empty",
     neem_contact_op: "contact_support",
-    niet_passend: "close",
-    partnerroute: "share",
   };
-  return outcomeIconMap[outcomeId] || "info";
+  return (
+    outcomeIconMap[outcomeId] ||
+    (quickscanData.outcomes[outcomeId] ? "check" : "info")
+  );
 }
 
 /**
@@ -281,6 +312,16 @@ function renderOutcome(outcomeId) {
 
   app.innerHTML = "";
   app.appendChild(fragment);
+
+  debugLog("QuickScan outcome:", {
+    outcomeId,
+    outcomeTitle: outcome.title,
+    history: questionHistory.map((item) => ({
+      id: item.id,
+      title: item.title,
+      selectedOption: item.selectedOption,
+    })),
+  });
 }
 
 /**
@@ -291,14 +332,23 @@ function handleCTA(action) {
     selectedCategory = null;
     questionHistory = [];
     renderQuestion("start");
-  } else if (action === "go_back") {
-    // Go back to the last question
+    return;
+  }
+
+  if (action === "go_back") {
     if (questionHistory.length > 0) {
       const lastQuestion = questionHistory[questionHistory.length - 1];
       renderQuestion(lastQuestion.id, true);
     }
+    return;
   }
-  // Add other CTA handlers as needed (contact, bekijk_routes, etc.)
+
+  if (CTA_URLS[action]) {
+    window.location.href = CTA_URLS[action];
+    return;
+  }
+
+  // Add other CTA handlers as needed (bekijk_routes, etc.)
 }
 
 /**
