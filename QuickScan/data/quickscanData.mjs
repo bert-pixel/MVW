@@ -6,7 +6,7 @@ const quickscanData = {
     start_aanvraag: {
       id: "start_aanvraag",
       title: "Start je aanvraag",
-      body: "Je aanvraag lijkt te voldoen aan de basiscriteria van Maatschappij van Welstand. Controleer de voorwaarden en stuur waar mogelijk bewijsstukken mee.",
+      body: "Je aanvraag lijkt te voldoen aan de basiscriteria van Maatschappij van Welstand. Lees eerst de voorwaarden voordat je met de aanvraag start.",
       ctas: [
         { label: "Start aanvraag", action: "start_aanvraag" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
@@ -15,7 +15,7 @@ const quickscanData = {
     noodhulp_contact: {
       id: "noodhulp_contact",
       title: "Aanvraag niet mogelijk via privépersoon",
-      body: "Een aanvraag kan alleen worden ingediend door een erkende hulpverlener of maatschappelijk werker van een officiële, erkende hulpverlenende organisatie. Privéaanvragen worden niet in behandeling genomen.",
+      body: "Een aanvraag kan alleen worden ingediend door een officeel erkende of geregistreerde hulpverlenende organisatie.",
       ctas: [{ label: "Neem contact op", action: "contact" }],
     },
     mvw_al_reeds_toegekend: {
@@ -44,8 +44,8 @@ const quickscanData = {
     },
     project_kerk: {
       id: "project_kerk",
-      title: "Kerk en/of geloof",
-      body: "Je project valt onder kerk en/of geloof. Je kunt een aanvraag doen voor versterking en vernieuwing, migrantenkerken of interculturele kerken, pioniersplekken, restauratie of nieuw-/verbouw van kerkgebouwen en orgels. Onder voorwaarden is ook een hypothecaire lening mogelijk.",
+      title: "Kerk en geloof",
+      body: "Je project valt onder kerk en geloof. Je kunt een aanvraag doen voor versterking en vernieuwing, migrantenkerken of interculturele kerken, pioniersplekken, restauratie of nieuw-/verbouw van kerkgebouwen en orgels. Onder voorwaarden is ook een hypothecaire lening mogelijk.",
       ctas: [{ label: "Start aanvraag", action: "start_aanvraag" }],
     },
     project_samenleving: {
@@ -78,6 +78,7 @@ const quickscanData = {
     start: {
       id: "start",
       step: 0,
+      label: "Start",
       title: "Waarvoor wil je een aanvraag doen?",
       subtitle: "Start de Quick Scan voor:",
       options: [
@@ -95,8 +96,10 @@ const quickscanData = {
     noodhulp_hulpverlener: {
       id: "noodhulp_hulpverlener",
       step: 1,
+      label: "Hulpverlener",
       title:
-        "Ben jij een hulpverlener of maatschappelijk werker van een officiële hulpverlenende organisatie? (bijvoorbeeld maatschappelijk werk, wijkteam, zorginstelling, therapeut) of een erkend bewindvoerder?",
+        "Ben jij een hulpverlener of maatschappelijk werker van een officiële hulpverlenende organisatie of een erkend bewindvoerder?",
+      info: "Bijvoorbeeld maatschappelijk werk, wijkteam, zorginstelling, therapeut.",
       options: [
         {
           label: "Ja",
@@ -114,13 +117,14 @@ const quickscanData = {
     noodhulp_wettelijke_regelingen: {
       id: "noodhulp_wettelijke_regelingen",
       step: 2,
+      label: "Regelingen",
       title:
-        "Maatschappij van Welstand ziet haar gift als aanvullend op wettelijke overheidsregelingen en lokale noodfondsen. Kan er voor deze aanvraag hier ook aanspraak op worden gemaakt?",
+        "Maatschappij van Welstand ziet haar gift als aanvullend op wettelijke overheidsregelingen en lokale noodfondsen. Kan daar voor deze aanvraag een beroep op worden gedaan?",
       options: [
         {
           label: "Ja",
           next: "noodhulp_voorgaande_bijdrage",
-          hint: "Bij de aanvraag graag de bedragen vermelden en bewijsstukken meesturen.",
+          hint: "Lees eerst de voorwaarden voordat je met de aanvraag start.",
         },
         {
           label: "Nee",
@@ -133,18 +137,19 @@ const quickscanData = {
     noodhulp_voorgaande_bijdrage: {
       id: "noodhulp_voorgaande_bijdrage",
       step: 3,
+      label: "Bijdrage",
       title:
         "Heeft de cliënt/het gezin in de afgelopen drie jaar al eens een financiële bijdrage gekregen vanuit Maatschappij van Welstand?",
       options: [
         {
-          label: "Nee",
-          next: null,
-          outcome: "start_aanvraag",
-        },
-        {
           label: "Ja",
           next: null,
           outcome: "mvw_al_reeds_toegekend",
+        },
+        {
+          label: "Nee",
+          next: null,
+          outcome: "start_aanvraag",
         },
       ],
     },
@@ -152,8 +157,9 @@ const quickscanData = {
     project_kenmerk: {
       id: "project_kenmerk",
       step: 1,
+      label: "Identiteit",
       title:
-        "Heeft het project of de aanvragende organisatie/kerk/geloofsgemeenschap een protestants-christelijke identiteit?",
+        "Heeft het project of de aanvragende organisatie, kerk of geloofsgemeenschap een protestants-christelijke identiteit?",
       options: [
         {
           label: "Ja",
@@ -171,8 +177,8 @@ const quickscanData = {
     project_locatie: {
       id: "project_locatie",
       step: 2,
-      title:
-        "Betreft het een aanvraag voor een project/initiatief in Nederland?",
+      label: "Locatie",
+      title: "Betreft het een aanvraag voor een project in Nederland?",
       options: [
         {
           label: "Ja",
@@ -190,8 +196,9 @@ const quickscanData = {
     project_eenmalig: {
       id: "project_eenmalig",
       step: 3,
+      label: "Type",
       title:
-        "Is jouw project/initiatief een eenmalig evenement, congres of publicatie, tijdschrift of boek?",
+        "Is jouw project een eenmalig (cultureel) evenement, congres of publicatie, tijdschrift of boek?",
       options: [
         {
           label: "Ja",
@@ -209,8 +216,9 @@ const quickscanData = {
     project_eigen_vermogen: {
       id: "project_eigen_vermogen",
       step: 4,
+      label: "Vermogen",
       title:
-        "Is het eigen vermogen van de aanvragende organisatie meer dan 1,5 van de reguliere jaaromzet?",
+        "Is het eigen vermogen van de aanvragende organisatie meer dan 1,5 keer de reguliere jaaromzet?",
       options: [
         {
           label: "Ja",
@@ -228,10 +236,11 @@ const quickscanData = {
     project_domein: {
       id: "project_domein",
       step: 5,
-      title: "Is het project/initiatief gericht op:",
+      label: "Domein",
+      title: "Is het project gericht op:",
       options: [
         {
-          label: "Kerk en/of geloof",
+          label: "Kerk en geloof",
           next: null,
           outcome: "project_kerk",
         },

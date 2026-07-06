@@ -10,6 +10,7 @@ let currentQuestionId = "start";
 let selectedCategory = null;
 let questionHistory = [];
 let viewMode = "card";
+let activeInfoTooltip = null;
 const debug = true;
 
 const CTA_URLS = {
@@ -17,6 +18,13 @@ const CTA_URLS = {
   bekijk_voorwaarden: "/donatie-aanvragen",
   start_aanvraag: "https://aanvragen.mvw.nl/Account/Login",
 };
+
+document.addEventListener("click", () => {
+  if (activeInfoTooltip) {
+    activeInfoTooltip.classList.remove("visible");
+    activeInfoTooltip = null;
+  }
+});
 
 function debugLog(...args) {
   if (!debug) return;
@@ -94,8 +102,19 @@ function renderProgress() {
     const stepButton = document.createElement("button");
     stepButton.type = "button";
     stepButton.className = "progress-step";
-    stepButton.textContent = stepNum;
     stepButton.title = historyItem.title;
+
+    const stepNumberEl = document.createElement("span");
+    stepNumberEl.className = "progress-step-number";
+    stepNumberEl.textContent = stepNum;
+    stepButton.appendChild(stepNumberEl);
+
+    if (historyItem.label) {
+      const stepLabelEl = document.createElement("span");
+      stepLabelEl.className = "progress-step-label";
+      stepLabelEl.textContent = historyItem.label;
+      stepButton.appendChild(stepLabelEl);
+    }
 
     if (index === questionHistory.length - 1) {
       stepButton.classList.add("current");
@@ -144,6 +163,7 @@ function renderQuestion(questionId, isJump = false) {
     questionHistory.push({
       id: questionId,
       title: question.title,
+      label: question.label,
       step: question.step,
       selectedOption: null,
     });
@@ -156,7 +176,47 @@ function renderQuestion(questionId, isJump = false) {
   }
 
   const fragment = questionTemplate.content.cloneNode(true);
-  fragment.querySelector(".question-title").textContent = question.title;
+  const titleElement = fragment.querySelector(".question-title");
+  titleElement.textContent = question.title;
+
+  if (question.info) {
+    const header = fragment.querySelector(".question-header");
+    header.classList.add("question-header-with-info");
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.className = "question-tooltip";
+
+    const infoButton = document.createElement("button");
+    infoButton.type = "button";
+    infoButton.className = "question-info-button";
+    infoButton.setAttribute("aria-label", "Meer info");
+    infoButton.setAttribute("aria-expanded", "false");
+    infoButton.innerHTML = '<span class="material-icons">info</span>';
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "question-tooltip-content";
+    tooltip.textContent = question.info;
+
+    infoButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isVisible = tooltip.classList.toggle("visible");
+      infoButton.setAttribute("aria-expanded", String(isVisible));
+
+      if (isVisible) {
+        if (activeInfoTooltip && activeInfoTooltip !== tooltip) {
+          activeInfoTooltip.classList.remove("visible");
+        }
+        activeInfoTooltip = tooltip;
+      } else {
+        activeInfoTooltip = null;
+      }
+    });
+
+    infoWrapper.appendChild(infoButton);
+    infoWrapper.appendChild(tooltip);
+    header.appendChild(infoWrapper);
+  }
+
   const optionsContainer = fragment.querySelector(".question-options");
   optionsContainer.innerHTML = "";
 
@@ -177,7 +237,10 @@ function renderQuestion(questionId, isJump = false) {
       }
 
       const icon = getIconForOption(option.label);
-      card.innerHTML = `<span class="material-icons option-icon">${icon}</span><span class="option-card-label">${option.label}</span>`;
+      const hintHtml = option.hint
+        ? `<span class="option-card-hint">${option.hint}</span>`
+        : "";
+      card.innerHTML = `<span class="material-icons option-icon">${icon}</span><span class="option-card-label">${option.label}</span>${hintHtml}`;
       card.addEventListener("click", () => handleAnswer(option));
       cardContainer.appendChild(card);
     });
@@ -252,10 +315,10 @@ function handleAnswer(option) {
 function getOutcomeIcon(outcomeId) {
   const outcomeIconMap = {
     start_aanvraag: "check_circle",
-    noodhulp_contact: "block",
-    mvw_al_reeds_toegekend: "block",
+    noodhulp_contact: "remove",
+    mvw_al_reeds_toegekend: "remove",
     project_passend: "check_circle",
-    project_niet_passend: "block",
+    project_niet_passend: "remove",
     project_kerk: "check_circle",
     project_samenleving: "check_circle",
     project_onderwijs: "check_circle",
