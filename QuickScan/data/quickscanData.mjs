@@ -230,6 +230,12 @@ const quickscanData = {
           label: "Nee",
           next: "project_domein",
         },
+        {
+          label: "Ik weet het niet zeker",
+          next: null,
+          outcome: "neem_contact_op",
+          hint: "Twijfel je of je te veel eigen vermogen hebt naar onze richtlijn? Neem contact met ons op via het contactformulier en stuur je jaarrekening alvast op.",
+        },
       ],
     },
 
