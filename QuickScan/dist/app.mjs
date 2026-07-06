@@ -11,57 +11,7 @@ let selectedCategory = null;
 let questionHistory = [];
 let viewMode = "card";
 let activeInfoTooltip = null;
-let activeHintModal = null;
 const debug = true;
-
-function isMobileScreen() {
-  return window.matchMedia("(max-width: 40rem)").matches;
-}
-
-function showHintModal(text) {
-  if (activeHintModal) {
-    activeHintModal.remove();
-  }
-
-  const backdrop = document.createElement("div");
-  backdrop.className = "hint-modal-backdrop";
-
-  const modal = document.createElement("div");
-  modal.className = "hint-modal";
-
-  const modalHeader = document.createElement("div");
-  modalHeader.className = "hint-modal-header";
-  modalHeader.textContent = "Info";
-
-  const closeButton = document.createElement("button");
-  closeButton.type = "button";
-  closeButton.className = "hint-modal-close";
-  closeButton.innerHTML = '<span class="material-icons">close</span>';
-  closeButton.addEventListener("click", () => {
-    backdrop.remove();
-    activeHintModal = null;
-  });
-
-  modalHeader.appendChild(closeButton);
-
-  const modalBody = document.createElement("div");
-  modalBody.className = "hint-modal-body";
-  modalBody.textContent = text;
-
-  modal.appendChild(modalHeader);
-  modal.appendChild(modalBody);
-  backdrop.appendChild(modal);
-
-  backdrop.addEventListener("click", (event) => {
-    if (event.target === backdrop) {
-      backdrop.remove();
-      activeHintModal = null;
-    }
-  });
-
-  document.body.appendChild(backdrop);
-  activeHintModal = backdrop;
-}
 
 const CTA_URLS = {
   contact: "/contact",
@@ -285,39 +235,16 @@ function renderQuestion(questionId, isJump = false) {
       const card = document.createElement("button");
       card.type = "button";
       card.className = "option-card";
-      card.setAttribute("type", "button");
 
       if (selectedOptionLabel === option.label) {
         card.classList.add("selected");
       }
 
       const icon = getIconForOption(option.label);
-      const iconEl = document.createElement("span");
-      iconEl.className = "material-icons option-icon";
-      iconEl.textContent = icon;
-
-      const labelEl = document.createElement("span");
-      labelEl.className = "option-card-label";
-      labelEl.innerHTML = option.label;
-
-      card.appendChild(iconEl);
-      card.appendChild(labelEl);
-
-      if (option.hint) {
-        const infoButton = document.createElement("button");
-        infoButton.type = "button";
-        infoButton.className = "option-info-button";
-        infoButton.setAttribute("aria-label", "Toon extra informatie");
-        infoButton.innerHTML = '<span class="material-icons">info</span>';
-
-        infoButton.addEventListener("click", (event) => {
-          event.stopPropagation();
-          showHintModal(option.hint);
-        });
-
-        card.appendChild(infoButton);
-      }
-
+      const hintHtml = option.hint
+        ? `<span class="option-card-hint">${option.hint}</span>`
+        : "";
+      card.innerHTML = `<span class="material-icons option-icon">${icon}</span><span class="option-card-label">${option.label}</span>${hintHtml}`;
       card.addEventListener("click", () => handleAnswer(option));
       cardContainer.appendChild(card);
     });

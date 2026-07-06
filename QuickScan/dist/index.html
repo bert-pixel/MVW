@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickScan</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+
+  <body>
+    <main class="main">
+      <section class="section">
+        <div class="container">
+          <article class="article">
+            <header class="article-header">
+              <div class="header-content">
+                <div class="view-toggle hidden">
+                  <button
+                    type="button"
+                    class="toggle-btn"
+                    data-view="list"
+                    title="List view"
+                  >
+                    <span class="material-icons">view_list</span>
+                    <span>Lijst</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="toggle-btn active"
+                    data-view="card"
+                    title="Card view"
+                  >
+                    <span class="material-icons">apps</span>
+                    <span>Kaart</span>
+                  </button>
+                </div>
+              </div>
+            </header>
+          </article>
+
+          <template id="progress-template">
+            <div class="progress-bar">
+              <div class="progress-steps"></div>
+            </div>
+          </template>
+
+          <template id="question-template">
+            <section class="question-card">
+              <div class="question-header">
+                <h2 class="question-title"></h2>
+              </div>
+              <div class="question-options"></div>
+            </section>
+          </template>
+
+          <template id="outcome-template">
+            <section class="outcome-card">
+              <span class="outcome-icon material-icons"></span>
+              <h2 class="outcome-title"></h2>
+              <p class="outcome-body"></p>
+              <ul class="outcome-list"></ul>
+              <p class="outcome-post"></p>
+              <div class="outcome-ctas"></div>
+            </section>
+          </template>
+
+          <template id="cta-template">
+            <button type="button" class="cta-button"></button>
+          </template>
+
+          <div id="app">
+            <!-- QuickScan content will be rendered here -->
+          </div>
+
+          <p class="disclaimer">
+            <strong>Let op:</strong> deze quickscan is alleen een richtlijn of
+            de aanvraag voldoet aan de basiscriteria van Maatschappij van
+            Welstand. Aan de uitkomst kun je geen rechten ontlenen en het is
+            geen garantie dat de aan te vragen financiële bijdrage ook wordt
+            toegekend.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
