@@ -21,7 +21,7 @@ const quickscanData = {
     mvw_al_reeds_toegekend: {
       id: "mvw_al_reeds_toegekend",
       title: "Waarschijnlijk niet passend",
-      body: "MvW kent in principe geen bijdragen toe aan personen/gezinnen die in de afgelopen drie jaar al een toekenning hebben gekregen. Neem bij twijfel contact op via info@mvw.nl of telefonisch via 033 – 467 10 15.",
+      body: "MvW kent in principe geen bijdragen toe aan personen/gezinnen die in de afgelopen drie jaar al een toekenning hebben gekregen. Neem bij twijfel contact op.",
       ctas: [{ label: "Neem contact op", action: "contact" }],
     },
     project_passend: {
@@ -127,7 +127,7 @@ const quickscanData = {
       subtitle: "Start de Quick Scan voor:",
       options: [
         {
-          label: "Projectondersteuning",
+          label: "Projectonder&shy;steuning",
           next: "project_kenmerk",
         },
         {
@@ -213,7 +213,7 @@ const quickscanData = {
           label: "Nee",
           next: null,
           outcome: "project_niet_passend",
-          hint: "Wij ondersteunen uitsluitend projecten met een kerkelijke verbondenheid of waarin de christelijke levensbeschouwing zichtbaar is. Projecten waarbij er vanuit historie wel een verbinding is met het protestantisme, maar die nu culturele of maatschappelijke doelstellingen hebben, vallen buiten onze doelstelling. Voor projecten gericht op of voortkomend uit rooms-katholieke kerken willen we je graag verwijzen naar fondsen met een rooms-katholieke achtergrond.",
+          hint: "Wij ondersteunen uitsluitend projecten met een kerkelijke verbondenheid of zichtbare christelijke levensbeschouwing. Projecten met historische protestantse wortels maar huidige culturele of maatschappelijke doelstellingen vallen buiten onze scope. Voor rooms-katholieke projecten verwijzen we graag naar fondsen met deze achtergrond.",
         },
       ],
     },
