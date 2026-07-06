@@ -325,6 +325,7 @@ function getOutcomeIcon(outcomeId) {
     project_onderwijs: "check_circle",
     bekijk_voorwaarden: "hourglass_empty",
     neem_contact_op: "contact_support",
+    niet_aanmerking_donatie: "remove",
   };
   return (
     outcomeIconMap[outcomeId] ||

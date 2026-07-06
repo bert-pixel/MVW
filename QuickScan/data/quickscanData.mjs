@@ -50,7 +50,7 @@ const quickscanData = {
     },
     project_samenleving: {
       id: "project_samenleving",
-      title: "Ondersteuning kwetsbare groepen",
+      title: "Samenleving",
       body: "Je project valt onder maatschappelijke zorg. Je kunt een aanvraag doen voor inloophuizen, presentie of maatschappelijke hulp, faciliteiten en inrichting, of recreatie met zorg.",
       ctas: [{ label: "Start aanvraag", action: "start_aanvraag" }],
     },
@@ -70,6 +70,12 @@ const quickscanData = {
       id: "neem_contact_op",
       title: "Neem contact op",
       body: "Bij twijfel of onduidelijkheid is het verstandig om contact op te nemen zodat je niet onnodig een aanvraag start.",
+      ctas: [{ label: "Neem contact op", action: "contact" }],
+    },
+    niet_aanmerking_donatie: {
+      id: "niet_aanmerking_donatie",
+      title: "In principe kom je niet in aanmerking voor een donatie",
+      body: "Aan de hand van het eigen vermogen van de aanvrager bekijken wij of onze bijdrage echt nodig is. Hiervoor maken wij een berekening van het beschikbaar eigen vermogen: als dat meer is dan 1,5x de reguliere jaaromzet komt een project in principe niet in aanmerking voor steun. Twijfel je of je te veel eigen vermogen hebt naar onze richtlijn? Neem contact met ons op via het contactformulier en stuur je jaarrekening alvast op.",
       ctas: [{ label: "Neem contact op", action: "contact" }],
     },
   },
@@ -219,11 +225,12 @@ const quickscanData = {
       label: "Vermogen",
       title:
         "Is het eigen vermogen van de aanvragende organisatie meer dan 1,5 keer de reguliere jaaromzet?",
+      info: "Let op dat we soms inzicht vragen in de jaarrekening van andere betrokken partijen: als er bijvoorbeeld een beheersstichting verbonden is aan een kerk of gebouw, dan vragen we inzicht in de jaarrekening van kerk en stichting. Als een gebouw in bezit of beheer is van een stichting, dan verwachten dat de kerkgemeenschap die het gebouw gebruikt, ook financieel bijdraagt aan het project.",
       options: [
         {
           label: "Ja",
           next: null,
-          outcome: "neem_contact_op",
+          outcome: "niet_aanmerking_donatie",
           hint: "Neem contact op als je twijfelt over eigen vermogen; MvW vraagt soms jaarrekeninginzichten op bij betrokken partijen.",
         },
         {

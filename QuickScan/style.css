@@ -194,20 +194,33 @@ body {
 }
 
 .question-tooltip-content {
+  --c-bg: rgba(0, 0, 0, 0.9);
   position: absolute;
   top: calc(100% + 0.75rem);
-  right: 0;
+  right: -0.25rem;
   z-index: 10;
   min-width: 16rem;
   max-width: 22rem;
-  padding: 0.9rem 1rem;
-  background: rgba(0, 0, 0, 0.9);
+  width: 100vw;
+  padding: 1rem;
+  background: var(--c-bg);
   color: white;
   border-radius: 0.75rem;
   font-size: 0.95rem;
   line-height: 1.5;
   box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.18);
   display: none;
+  font-family: sans-serif;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -1rem;
+    right: 1rem;
+    border-width: 0.5rem;
+    border-style: solid;
+    border-color: transparent transparent var(--c-bg) transparent;
+  }
 }
 
 .question-tooltip-content.visible {
@@ -356,11 +369,11 @@ body {
   max-width: 100%;
   position: absolute;
   inset: 0;
-  padding: 0.6rem;
+  padding: 1rem;
   background: var(--c-primary);
   translate: calc(100% - 2rem) calc(-100% + 2rem);
   border-radius: 0.5rem;
-  transition: translate 0.2s ease-out;
+  transition: translate 0.15s ease-in-out;
 
   &:after {
     content: "i";
@@ -377,6 +390,10 @@ body {
 
   &:hover {
     translate: 0 0;
+
+    &:after {
+      display: none;
+    }
   }
 }
 
