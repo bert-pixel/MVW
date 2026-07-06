@@ -245,7 +245,7 @@ const quickscanData = {
           outcome: "project_kerk",
         },
         {
-          label: "Ondersteuning van kwetsbare groepen in de samenleving",
+          label: "Samenleving",
           next: null,
           outcome: "project_samenleving",
         },
