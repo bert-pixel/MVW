@@ -134,6 +134,13 @@ function mvw_quickscan_shortcode( $atts ) {
 					</template>
 
 					<div class="mvw-app"></div>
+          <p class="mvw-disclaimer">
+            <strong>Let op:</strong> deze quickscan is alleen een richtlijn of
+            de aanvraag voldoet aan de basiscriteria van Maatschappij van
+            Welstand. Aan de uitkomst kun je geen rechten ontlenen en het is
+            geen garantie dat de aan te vragen financiële bijdrage ook wordt
+            toegekend.
+          </p>
 				</div>
 			</div>
 		</div>

@@ -17,6 +17,9 @@ const CTA_URLS = {
   contact: "/contact",
   bekijk_voorwaarden: "/donatie-aanvragen",
   start_aanvraag: "https://aanvragen.mvw.nl/Account/Login",
+  zie_kerk: "/donatie-aanvragen/donatie-aanvragen-kerk/",
+  zie_samenleving: "/donatie-aanvragen/donatie-aanvragen-samenleving/",
+  zie_onderwijs: "/donatie-aanvragen/donatie-aanvragen-onderwijs/",
 };
 
 document.addEventListener("click", () => {
@@ -325,6 +328,7 @@ function getOutcomeIcon(outcomeId) {
     project_onderwijs: "check_circle",
     bekijk_voorwaarden: "hourglass_empty",
     neem_contact_op: "contact_support",
+    neem_contact_op_vermogen: "contact_support",
     niet_aanmerking_donatie: "remove",
   };
   return (
@@ -346,6 +350,17 @@ function renderOutcome(outcomeId) {
     getOutcomeIcon(outcomeId);
   fragment.querySelector(".outcome-title").textContent = outcome.title;
   fragment.querySelector(".outcome-body").textContent = outcome.body;
+  fragment.querySelector(".outcome-list").innerHTML = "";
+  fragment.querySelector(".outcome-post").textContent = outcome.post || "";
+
+  if (outcome.list) {
+    const listContainer = fragment.querySelector(".outcome-list");
+    outcome.list.forEach((item) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = item;
+      listContainer.appendChild(listItem);
+    });
+  }
 
   const ctasContainer = fragment.querySelector(".outcome-ctas");
   ctasContainer.innerHTML = "";
