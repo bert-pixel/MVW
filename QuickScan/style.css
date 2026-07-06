@@ -21,6 +21,15 @@ body {
   font-family: "Bree Serif", serif;
 }
 
+.disclaimer {
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #888;
+  padding: 1rem 3rem;
+  font-weight: 300;
+  font-family: sans-serif;
+}
+
 .nav.topnav {
   position: fixed;
   top: 0;
@@ -31,7 +40,8 @@ body {
   background: white;
 }
 
-.main {
+.hidden {
+  display: none !important;
 }
 
 .section {
@@ -276,7 +286,7 @@ body {
 }
 
 .option-card-label {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #333;
   line-height: 1.3;

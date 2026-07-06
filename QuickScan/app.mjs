@@ -47,7 +47,7 @@ function getIconForOption(label) {
     orgel: "music_note",
     inloop: "location_city",
     presentie: "groups",
-    hulp: "support_agent",
+    hulp: "family_restroom",
     faciliteiten: "home",
     recreatie: "videogame_asset",
     vorming: "palette",

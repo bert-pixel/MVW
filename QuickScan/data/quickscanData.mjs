@@ -78,8 +78,7 @@ const quickscanData = {
     start: {
       id: "start",
       step: 0,
-      title:
-        "Ben je benieuwd of je een donatieaanvraag kunt indienen bij Maatschappij van Welstand? Waarvoor wil je een aanvraag doen?",
+      title: "Waarvoor wil je een aanvraag doen?",
       subtitle: "Start de Quick Scan voor:",
       options: [
         {
