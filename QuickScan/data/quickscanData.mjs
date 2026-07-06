@@ -8,8 +8,8 @@ const quickscanData = {
       title: "Start je aanvraag",
       body: "Je aanvraag lijkt te voldoen aan de basiscriteria van Maatschappij van Welstand. Lees eerst de voorwaarden voordat je met de aanvraag start.",
       ctas: [
-        { label: "Start aanvraag", action: "start_aanvraag" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
+        { label: "Start aanvraag", action: "start_aanvraag" },
       ],
     },
     noodhulp_contact: {
@@ -29,8 +29,8 @@ const quickscanData = {
       title: "Je project lijkt passend",
       body: "Op basis van je antwoorden lijkt jouw project aan te sluiten bij de richtlijnen van Maatschappij van Welstand. Controleer de voorwaarden en start je aanvraag.",
       ctas: [
-        { label: "Start aanvraag", action: "start_aanvraag" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
+        { label: "Start aanvraag", action: "start_aanvraag" },
       ],
     },
     project_niet_passend: {
@@ -55,8 +55,8 @@ const quickscanData = {
       ],
       post: "Lees eerst onze voorwaarden voor je de aanvraag start",
       ctas: [
-        { label: "Zie Kerken", action: "zie_kerk" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
+        { label: "Zie Kerken", action: "zie_kerk" },
       ],
     },
     project_samenleving: {
@@ -71,8 +71,8 @@ const quickscanData = {
       ],
       post: "Lees eerst onze voorwaarden voor je de aanvraag start",
       ctas: [
-        { label: "Zie Samenleving", action: "zie_samenleving" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
+        { label: "Zie Samenleving", action: "zie_samenleving" },
       ],
     },
     project_onderwijs: {
@@ -88,8 +88,8 @@ const quickscanData = {
       ],
       post: "Lees eerst onze voorwaarden voor je de aanvraag start.",
       ctas: [
-        { label: "Zie Onderwijs", action: "zie_onderwijs" },
         { label: "Bekijk voorwaarden", action: "bekijk_voorwaarden" },
+        { label: "Zie Onderwijs", action: "zie_onderwijs" },
       ],
     },
     bekijk_voorwaarden: {
