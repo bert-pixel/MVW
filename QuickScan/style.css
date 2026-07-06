@@ -299,27 +299,29 @@ body {
 
 /* Card View Layout */
 .question-options-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); */
   gap: 1rem;
 }
 
 .option-card {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  padding: 1.5rem;
+  padding: 2rem;
   border: 2px solid var(--c-primary-light);
   border-radius: 0.75rem;
   border-bottom-left-radius: 3rem;
   background: white;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 10rem;
   text-align: center;
-  aspect-ratio: 1;
+  aspect-ratio: 4/3;
   position: relative;
 }
 
@@ -385,6 +387,7 @@ body {
   border-radius: 1rem;
   box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.18);
   overflow: hidden;
+  animation: fadeDown 0.3s ease-out;
 }
 
 .hint-modal-header {
@@ -693,27 +696,30 @@ body {
   }
 
   .question-options-cards {
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); */
     gap: 0.5rem;
   }
 
   .option-card {
     padding: 0.5rem;
-    min-width: 8rem;
+    min-width: 11rem;
     gap: 0.5rem;
     border-radius: 0.5rem;
-  }
-
-  .material-icons.option-icon {
-    font-size: 2.5rem;
-  }
-
-  .option-card-label {
-    font-size: 0.875rem;
-    word-break: break-word;
+    aspect-ratio: 3/2;
   }
 
   .cta-button.cta-reset {
     border-radius: 0.5rem;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
