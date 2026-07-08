@@ -5,6 +5,7 @@ const progressTemplate = document.getElementById("progress-template");
 const questionTemplate = document.getElementById("question-template");
 const outcomeTemplate = document.getElementById("outcome-template");
 const ctaTemplate = document.getElementById("cta-template");
+const disclaimer = document.querySelector(".disclaimer");
 
 let currentQuestionId = "start";
 let selectedCategory = null;
@@ -82,6 +83,11 @@ document.addEventListener("click", () => {
 function debugLog(...args) {
   if (!debug) return;
   console.log(...args);
+}
+
+function updateDisclaimerVisibility(shouldShow) {
+  if (!disclaimer) return;
+  disclaimer.style.display = shouldShow ? "" : "none";
 }
 
 /**
@@ -212,6 +218,7 @@ function renderQuestion(questionId, isJump = false) {
   if (!question) return;
 
   currentQuestionId = questionId;
+  updateDisclaimerVisibility(questionId === "start");
 
   if (!isJump) {
     questionHistory.push({
@@ -416,6 +423,9 @@ function getOutcomeIcon(outcomeId) {
 function renderOutcome(outcomeId) {
   const outcome = quickscanData.outcomes[outcomeId];
   if (!outcome) return;
+
+  currentQuestionId = "outcome";
+  updateDisclaimerVisibility(true);
 
   const fragment = outcomeTemplate.content.cloneNode(true);
 

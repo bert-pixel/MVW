@@ -216,7 +216,7 @@ const quickscanData = {
           label: "Nee",
           next: null,
           outcome: "project_niet_passend",
-          hint: "Wij ondersteunen uitsluitend organisaties met een kerkelijke verbondenheid of zichtbare christelijke levensbeschouwing. Organisaties met historische protestantse wortels maar alleen huidige culturele of maatschappelijke doelstellingen vallen buiten onze scope. Voor rooms-katholieke projecten en organisaties verwijzen we graag naar fondsen met deze achtergrond.",
+          hint: "Wij ondersteunen uitsluitend organisaties met een kerkelijke verbondenheid of waarin de christelijke levensbeschouwing zichtbaar is. Organisaties waarbij er vanuit historie wel een verbinding is met het protestantisme, maar die nu alleen culturele of maatschappelijke doelstellingen hebben, vallen buiten onze doelstelling. Voor projecten en organisaties gericht op of voortkomend uit rooms-katholieke kerken willen we je graag verwijzen naar fondsen met een rooms-katholieke achtergrond.",
         },
       ],
     },
